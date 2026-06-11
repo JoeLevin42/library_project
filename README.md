@@ -6,19 +6,35 @@
 
 ## create_new_container:
 
-docker run --name [container name] -e MYSQL_ROOT_PASSWORD=root -p [3306:3306] -d mysql:8
+docker run --name mysql-library -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:8
 
 ## create database:
 
-CREATE DATABASE [database name];
+CREATE DATABASE library_db;
 
-## create table:
+## create table books:
 
-USE [database name];
-CREATE TABLE IF NOT EXISTS [table name ] (
-    name1 type [another things],
-    name2 type [another things]
+USE library_db;\
+CREATE TABLE IF NOT EXISTS books ( \
+    id INT PRIMARY KEY AUTO_INCREMENT, \
+    title VARCHAR(50) NOT NULL, \
+    author VARCHAR(50) NOT NULL, \
+    genre ENUM('Fiction','Non-Fiction','Science','History','Other'), \
+    is_availible BOOLEAN DEFAULT TRUE, \
+    borrowed_by_member_id VARCAHR(50) DEFAULT NULL \
 );
+
+
+## create table members
+
+USE library_db;
+CREATE TABLE IF NOT EXISTS members ( \
+    id INT PRIMARY KEY AUTO_INCREMENT, \
+    name VARCHAR(50) NOT NULL, \
+    email UNIQ NOT NULL, \
+    is_active BOOLEAN NOT NULL, \
+    total_borrows INT NOT NULL \
+    );
 
 ## Fodlers structure:
 
@@ -63,7 +79,7 @@ library-api/
 ## database python model:
 
 - **get_connection** : connects to mysql
-- **create_tables** : crating the book and the members tables in start of the main func
+- **create_tables** : creating the book and the members tables in start of the main func
 
 
 ## class BookDB:
