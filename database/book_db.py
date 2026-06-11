@@ -46,25 +46,117 @@ class BookDB:
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        cursor 
-        
-    def update_book(self,id:int,data):
-        pass
+        sql_promt = "SELECT * FROM books WHERE id = %s"
 
-    def set_available(self,id:int,val:str,member_id):
-        pass
+        cursor.execute(sql_promt,(id,))
+        row = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return row
+           
+    def update_book(self,id:int,data):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        set_parts = [f"`{key}`" for key in data.keys()]
+        set_clause = ", ".join(set_parts)
+
+        values = list(data.values()) + [id]
+
+        sql_promt = f"UPDATE books SET {set_clause} WHERE id = %s"
+        
+        cursor.execute(sql_promt,values)
+        
+        cursor.close()
+        conn.close()
+
+
+    def set_available(self,id:int,val:str,member_id:str):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        values = (val,member_id,id)
+        sql_promt = "UPDATE books SET is_available = %s , borrowed_by_member_id = %s WHERE id = %s"
+
+        cursor.execute(sql_promt,values)
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
 
     def count_total_books(self):
-        pass
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        sql_promt = "SELECT * FROM books ORDER BY name ASC"
+
+        cursor.execute(sql_promt)
+
+        rows = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return rows
 
     def count_available_books(self):
-        pass
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
 
+        sql_promt = "SELECT * FROM books WHERE is_available = TRUE"
+
+        cursor.execute(sql_promt)
+
+        rows = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return rows
+    
     def count_borrowed_books(self):
-        pass
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        sql_promt = "SELECT * FROM books WHERE is_available = FALSE"
+
+        cursor.execute(sql_promt)
+
+        rows = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return rows
 
     def count_by_genre(self,genre):
-        pass
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        sql_promt = "SELECT * FROM books WHERE genre = %s"
+        cursor.execute(sql_promt,(genre,))
+
+        rows = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return rows
 
     def count_active_borrows_by_member(member_id:int):
-        pass
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        sql_promt = "SELECT COUNT(*) FROM books WHERE member_id = %s"
+        cursor.execute(sql_promt,(member_id,))
+
+        row = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return row
+    

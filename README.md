@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS books ( \
     title VARCHAR(50) NOT NULL, \
     author VARCHAR(50) NOT NULL, \
     genre ENUM('Fiction','Non-Fiction','Science','History','Other'), \
-    is_availible BOOLEAN DEFAULT TRUE, \
+    is_available BOOLEAN DEFAULT TRUE, \
     borrowed_by_member_id VARCAHR(50) DEFAULT NULL \
 );
 
@@ -97,15 +97,15 @@ library-api/
 
 ## class MemeberDB:
 
--**create_member(data)** : insert to members , DEFAULT :  is_active=True,total_borroes=0
--**get_all_members()** : returns list of all the members without any filter
--**get_member_by_id(id)** : returns one member by the id , or none if not exists
--**update_member(id,data)** : updates the member by the fields that sends
--**deactive_member(id)** : updates that is_active = False to this member
--**active_member(id)** : updates the member is_active =True
--**increment_borrows(id)** : icrements the borrows by one
--**count_active_members()** : counts all the active members where is_active = True
--**get_top_member()** : its returns the member with the highest total_borrows
+- **create_member(data)** : insert to members , DEFAULT :  is_active=True,total_borroes=0
+- **get_all_members()** : returns list of all the members without any filter
+- **get_member_by_id(id)** : returns one member by the id , or none if not exists
+- **update_member(id,data)** : updates the member by the fields that sends
+- **deactive_member(id)** : updates that is_active = False to this member
+- **active_member(id)** : updates the member is_active =True
+- **increment_borrows(id)** : icrements the borrows by one
+- **count_active_members()** : counts all the active members where is_active = True
+- **get_top_member()** : its returns the member with the highest total_borrows
 
 
 ## System rules:
