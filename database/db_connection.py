@@ -31,7 +31,7 @@ def create_tables():
          USE library_db; CREATE TABLE IF NOT EXISTS members (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
-        email UNIQ NOT NULL,
+        email VARCHAR(50) UNIQ NOT NULL,
         is_active BOOLEAN NOT NULL,
         total_borrows INT NOT NULL
         )
