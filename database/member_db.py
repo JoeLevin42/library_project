@@ -20,7 +20,7 @@ class MemberDB:
         cursor.close()
         conn.close()
 
-        #mybe its will be a good idea to retunr the lastrowid 
+        #maybe its will be a good idea to return the lastrowid 
         
     def get_all_members(self):
         conn = get_connection()
@@ -71,7 +71,7 @@ class MemberDB:
         conn = get_connection()
         cursor = conn.cursor()
 
-        sql_promt = "UPDATE members SET is_active = TRUE WHERE id = %s"
+        sql_promt = "UPDATE members SET is_active = FALSE WHERE id = %s"
         cursor.execute(sql_promt,(id,))
         conn.commit()
 
@@ -83,7 +83,7 @@ class MemberDB:
         conn = get_connection()
         cursor = conn.cursor()
 
-        sql_promt = "UPDATE members SET is_active = FALSE WHERE id = %s"
+        sql_promt = "UPDATE members SET is_active = TRUE WHERE id = %s"
         cursor.execute(sql_promt,(id,))
         conn.commit()
 
@@ -124,10 +124,12 @@ class MemberDB:
         sql_promt_max = "SELECT MAX(total_borrows) FROM members"
         cursor.execute(sql_promt_max)
         max_number = cursor.fetchone()[0]
+        
+        if max_number is None:
+            return []
 
         sql_promt_main = "SELECT * FROM members WHERE total_borrows =%s"
         cursor.execute(sql_promt_main,(max_number,))
-
         rows = cursor.fetchall()
 
         cursor.close()
