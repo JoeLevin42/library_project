@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS books ( \
     author VARCHAR(50) NOT NULL, \
     genre ENUM('Fiction','Non-Fiction','Science','History','Other'), \
     is_available BOOLEAN DEFAULT TRUE, \
-    borrowed_by_member_id VARCAHR(50) DEFAULT NULL \
+    borrowed_by_member_id INT DEFAULT NULL \
 );
 
 
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS members ( \
     id INT PRIMARY KEY AUTO_INCREMENT, \
     name VARCHAR(50) NOT NULL, \
     email VARCHAR(50) UNIQ NOT NULL, \
-    is_active BOOLEAN NOT NULL, \
-    total_borrows INT NOT NULL \
+    is_active BOOLEAN NOT NULL DEFAULT TRUE, \
+    total_borrows INT NOT NULL DEFAULT 0 \
     );
 
 ## Fodlers structure:

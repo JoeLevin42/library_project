@@ -5,7 +5,7 @@ router = APIRouter()
 
 @router.get("/reports/summary")
 def get_reports_summary():
-    pass
+    pas
 
 @router.get("/reports/books-by-genre")
 def get_reports_by_genre():

@@ -1,6 +1,5 @@
 from database.db_connection import get_connection
 
-
 class BookDB:
     def __init__(self):
         pass
@@ -47,7 +46,7 @@ class BookDB:
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        sql = "SELECT * FROM BOOKS WHERE id = %s"
+        sql = "SELECT * FROM `books` WHERE id = %s"
         try:
             cursor.execute(sql,(id,))
             row = cursor.fetchone()
@@ -64,7 +63,7 @@ class BookDB:
         update_parts = [f"`{key}`=%s" for key in payload.keys()]
         update_str = ", ".join(update_parts)
         values = tuple(payload.values()) + (id,)
-        sql = f"UPDATE books SET {update_str} WHERE id = %s)"
+        sql = f"UPDATE books SET {update_str} WHERE id = %s"
 
         try:
             cursor.execute(sql,values)
@@ -164,12 +163,15 @@ class BookDB:
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        sql = "SELECT COUNT(*) FROM books WHERE borrowed_by_member_id = %s"
-
+        sql = """
+        SELECT COUNT(*) AS total_active
+        FROM books 
+        WHERE borrowed_by_member_id = %s
+        """
         try:
             cursor.execute(sql,(member_id,))
             row = cursor.fetchone()
-            return row
+            return row["total_active"]
         
         finally:
             cursor.close()

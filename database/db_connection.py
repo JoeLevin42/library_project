@@ -22,7 +22,7 @@ def create_tables():
         author VARCHAR(50) NOT NULL,
         genre ENUM('Fiction','Non-Fiction','Science','History','Other'),
         is_available BOOLEAN DEFAULT TRUE,
-        borrowed_by_member_id VARCHAR(50) DEFAULT NULL
+        borrowed_by_member_id INT DEFAULT NULL
         )   
          """
     cursor.execute(sql_promt_books)
@@ -32,8 +32,8 @@ def create_tables():
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
         email VARCHAR(50) UNIQUE NOT NULL,
-        is_active BOOLEAN NOT NULL,
-        total_borrows INT NOT NULL
+        is_active BOOLEAN NOT NULL DEFAULT TRUE,
+        total_borrows INT NOT NULL DEFAULT 0
         )
     """
     
@@ -42,6 +42,6 @@ def create_tables():
     cursor.close()
     conn.close()
 
-    return {}
+    
 
 

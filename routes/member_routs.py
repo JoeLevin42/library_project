@@ -57,7 +57,7 @@ def update_member(id:int,data: UpdateMember):
         if the_member is None:
              raise HTTPException(status_code=404, detail="The member not found")
         
-        mm_db.update_member(id=id,data=data.mode_dump())
+        mm_db.update_member(id=id,data=data.model_dump())
     
     except HTTPException:
          raise

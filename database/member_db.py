@@ -1,4 +1,4 @@
-from db_connection import get_connection
+from database.db_connection import get_connection
 
 class MemberDB:
     def __init__(self):
@@ -16,6 +16,7 @@ class MemberDB:
 
         try:
             cursor.execute(sql_promt,values)
+            conn.commit()
             new_id = cursor.lastrowid
             return new_id
         
@@ -112,7 +113,9 @@ class MemberDB:
         try:
             cursor.execute(sql_promt,(id,))
             conn.commit()
-        
+            new_id = cursor.lastrowid
+            return new_id
+
         except Exception as e:
             conn.rollback()
             raise
