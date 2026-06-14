@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS books ( \
 
 ## create table members
 
-USE library_db;
+USE library_db; \
 CREATE TABLE IF NOT EXISTS members ( \
     id INT PRIMARY KEY AUTO_INCREMENT, \
     name VARCHAR(50) NOT NULL, \

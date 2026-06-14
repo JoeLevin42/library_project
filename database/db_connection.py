@@ -22,23 +22,23 @@ def create_tables():
         author VARCHAR(50) NOT NULL,
         genre ENUM('Fiction','Non-Fiction','Science','History','Other'),
         is_available BOOLEAN DEFAULT TRUE,
-        borrowed_by_member_id VARCAHR(50) DEFAULT NULL
+        borrowed_by_member_id VARCHAR(50) DEFAULT NULL
         )   
          """
     cursor.execute(sql_promt_books)
 
     sql_promt_members = """
-         USE library_db; CREATE TABLE IF NOT EXISTS members (
+        CREATE TABLE IF NOT EXISTS members (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
-        email VARCHAR(50) UNIQ NOT NULL,
+        email VARCHAR(50) UNIQUE NOT NULL,
         is_active BOOLEAN NOT NULL,
         total_borrows INT NOT NULL
         )
     """
     
     cursor.execute(sql_promt_members)
-    
+    conn.commit()
     cursor.close()
     conn.close()
 
